@@ -6,10 +6,10 @@ def print_pause(message_to_print):
     time.sleep(1)
 
 def intro(monster):
-    print_pause("You find yourself standing in an open field, "
-    "filled with grass and yellow wildflowers.")
-    print_pause("Rumor has it that a wicked " + monster + " is somewhere "
-    "around here, and has been terrorizing the nearby village.")
+    print_pause("You are an adventurer on a quest to slay the fearsome " 
+    + monster + " of legend.")
+    print_pause("After travelling for many days and nights, you find yourself "
+    "in an open field.")
 
 def valid_input(prompt, option1, option2):
     while True:
@@ -19,28 +19,28 @@ def valid_input(prompt, option1, option2):
         elif option2 in response:
             break
         else:
-            print_pause("Please choose 1 or 2")
+            print_pause("Please choose 1 or 2.")
     return response
 
 def field(items, weapon, monster):
-    print_pause("In front of you is a small house.")
+    print_pause("In front of you is a dilapidated tower.")
     print_pause("To your right is a dark cave.")
     if weapon in items:
         print_pause("You are now armed with a " + weapon + ".")
     else:
         print_pause("The only item in your possession is a rusty lantern.")
-    print_pause("Enter 1 to knock on the door of the house.")
-    print_pause("Enter 2 to enter the cave.")
+    print_pause("Enter 1 to investigate the tower.")
+    print_pause("Enter 2 to investigate the cave.")
     response = valid_input("What would you like to do? "
     "Please enter 1 or 2. \n", '1', '2')
     if response == '1':
-        house(items, weapon, monster)
+        tower(items, weapon, monster)
     if response == '2':
         cave(items, weapon, monster)
 
-def house(items, weapon, monster):
-    print_pause("You knock on the door...")
-    print_pause("And the " + monster + " pops out!")
+def tower(items, weapon, monster):
+    print_pause("You climb the crumbling steps...")
+    print_pause("And find the " + monster + " at the top of the tower!")
     if weapon not in items:
         print_pause("The only thing you have to defend yourself with is "
         "your lantern...")
@@ -51,7 +51,7 @@ def house(items, weapon, monster):
     if response == "1":
         fight(items, weapon, monster)
     if response == "2":
-        print_pause("You bravely turned your tail and fled...")
+        print_pause("You bravely turned your tail and fled down the stairs...")
         print_pause("Thankfully you weren't followed!")
         print_pause("You are back in the field.")
         field(items, weapon, monster)
@@ -93,12 +93,14 @@ def get_weapon(items, weapon):
     print_pause("You add it to your inventory and return to the field.")
     items.append(weapon)
 
-def play_again(items, weapon, monster):
+def play_again(items, weapon, monsters):
     print_pause("Would you like to play again?")
     print_pause("Enter 1 for yes.")
     print_pause("Enter 2 for no.")
     response = valid_input("Please enter 1 or 2.\n", "1", "2")
     if response == "1":
+        monster = random.choice(monsters)
+        items = []
         intro(monster)
         field(items, weapon, monster)
     if response == "2":
